@@ -83,6 +83,7 @@ def authentication_decorator(func):
 
 #*****************************************XSS****************************************************#
 
+# my changes here
 
 def xss(request):
     if request.user.is_authenticated:
