@@ -112,7 +112,6 @@ def A7_disscussion_api(request):
 @csrf_exempt
 def A6_disscussion_api(request):
     test_bench = ["Pillow==8.0.0","PyJWT==2.4.0","requests==2.28.0","Django==4.0.4"]
-    
     try:
         result = check_vuln(test_bench)
         print(len(result))
