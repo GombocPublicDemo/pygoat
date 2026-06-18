@@ -29,5 +29,6 @@ jobs:
       - uses: gomboc-ai/actions/on-pull-request-runner@main
         with:
           mode: remediate
+          orl-channel: "abedeff7-2ad3-4966-ab4b-14d043befadb/set/Custom Policy"
         env:
           GOMBOC_ACCESS_TOKEN: ${{ secrets.GOMBOC_ACCESS_TOKEN }}
