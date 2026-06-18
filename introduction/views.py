@@ -41,6 +41,8 @@ from .utility import customHash, filter_blog
 
 #*****************************************Lab Requirements****************************************************#
 
+# my change
+
 #*****************************************Login and Registration****************************************************#
 
 def register(request):
