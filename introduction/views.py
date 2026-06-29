@@ -292,7 +292,7 @@ def auth_lab_signup(request):
             try:
                 rendered = render_to_string('Lab/AUTH/auth_success.html', {'username': obj.username,'userid':obj.userid,'name':obj.name,'err_msg':'Cookie Set'})
                 response = HttpResponse(rendered)
-                response.set_cookie('userid', obj.userid, max_age=31449600, samesite=None, secure=False)
+                response.set_cookie('userid', obj.userid, max_age=31449600, samesite=None, secure=True)
                 print('Setting cookie successful')
                 return response
             except:
@@ -306,7 +306,7 @@ def auth_lab_login(request):
             obj = authLogin.objects.filter(userid=request.COOKIES['userid'])[0]
             rendered = render_to_string('Lab/AUTH/auth_success.html', {'username': obj.username,'userid':obj.userid,'name':obj.name, 'err_msg':'Login Successful'})
             response = HttpResponse(rendered)
-            response.set_cookie('userid', obj.userid, max_age=31449600, samesite=None, secure=False)
+            response.set_cookie('userid', obj.userid, max_age=31449600, samesite=None, secure=True)
             print('Login successful')
             return response
         except:
@@ -320,7 +320,7 @@ def auth_lab_login(request):
             try:
                 rendered = render_to_string('Lab/AUTH/auth_success.html', {'username': obj.username,'userid':obj.userid,'name':obj.name, 'err_msg':'Login Successful'})
                 response = HttpResponse(rendered)
-                response.set_cookie('userid', obj.userid, max_age=31449600, samesite=None, secure=False)
+                response.set_cookie('userid', obj.userid, max_age=31449600, samesite=None, secure=True)
                 print('Login successful')
                 return response
             except:
