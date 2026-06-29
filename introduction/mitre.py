@@ -5,15 +5,7 @@ from hashlib import md5
 
 import jwt
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
-from django.shortcuts import redirect, render
-from django.views.decorators.csrf import csrf_exempt
-
-from .models import CSRF_user_tbl
-from .views import authentication_decorator
-
-# import os
-
-## Mitre top1 | CWE:787
+from django.shortcuts import redirect, renderp1 | CWE:787
 
 # target zone
 FLAG = "NOT_SUPPOSED_TO_BE_ACCESSED"
@@ -168,7 +160,7 @@ def csrf_lab_login(request):
             }
             cookie = jwt.encode(payload, 'csrf_vulneribility', algorithm='HS256')
             response = redirect("/mitre/9/lab/transaction")
-            response.set_cookie('auth_cookiee', cookie)
+            response.set_cookie('auth_cookiee', cookie, secure=True, httponly=True)
             return response
         else :
             return redirect('/mitre/9/lab/login')
@@ -177,8 +169,7 @@ def csrf_lab_login(request):
 @csrf_exempt
 def csrf_transfer_monei(request):
     if request.method == 'GET':
-        try:
-            cookie = request.COOKIES['auth_cookiee']
+        try:est.COOKIES['auth_cookiee']
             payload = jwt.decode(cookie, 'csrf_vulneribility', algorithms=['HS256'])
             username = payload['username']
             User = CSRF_user_tbl.objects.filter(username=username)
@@ -212,8 +203,7 @@ def csrf_transfer_monei_api(request,recipent,amount):
 
 # @authentication_decorator
 @csrf_exempt
-def mitre_lab_25_api(request):
-    if request.method == "POST":
+def mitre_lab_25_api(request): == "POST":
         expression = request.POST.get('expression')
         result = eval(expression)
         return JsonResponse({'result': result})
@@ -234,7 +224,6 @@ def command_out(command):
     return process.communicate()
     
 
-@csrf_exempt
 def mitre_lab_17_api(request):
     if request.method == "POST":
         ip = request.POST.get('ip')
