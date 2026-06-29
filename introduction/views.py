@@ -212,7 +212,7 @@ def insec_des_lab(request):
         token = request.COOKIES.get('token')
         if token == None:
             token = encoded_user
-            response.set_cookie(key='token',value=token.decode('utf-8'))
+            response.set_cookie(key='token',value=token.decode('utf-8'), secure=True)
         else:
             token = base64.b64decode(token)
             admin = pickle.loads(token)
@@ -364,7 +364,7 @@ def ba_lab(request):
                         "data":"0NLY_F0R_4DM1N5",
                         "username": "admin"
                     })
-                html.set_cookie("admin", "1",max_age=200)
+                html.set_cookie("admin", "1",max_age=200, secure=True)
                 return html
             elif login.objects.filter(user=name,password=password):
                 html = render(
@@ -374,7 +374,7 @@ def ba_lab(request):
                     "not_admin":"No Secret key for this User",
                     "username": name
                 })
-                html.set_cookie("admin", "0",max_age=200)
+                html.set_cookie("admin", "0",max_age=200, secure=True)
                 return html
             else:
                 return render(request, 'Lab/BrokenAccess/ba_lab.html', {"data": "User Not Found"})
@@ -502,13 +502,13 @@ def Otp(request):
             if email=="admin@pygoat.com":
                 otp.objects.filter(id=2).update(otp=otpN)
                 html = render(request, "Lab/BrokenAuth/otp.html", {"otp":"Sent To Admin Mail ID"})
-                html.set_cookie("email", email)
+                html.set_cookie("email", email, secure=True)
                 return html
 
             else:
                 otp.objects.filter(id=1).update(email=email, otp=otpN)
                 html=render (request,"Lab/BrokenAuth/otp.html",{"otp":otpN})
-                html.set_cookie("email",email)
+                html.set_cookie("email",email, secure=True)
                 return html
         else:
             return render(request,"Lab/BrokenAuth/otp.html")
@@ -775,7 +775,7 @@ def a1_broken_access_lab_1(request):
                 "not_admin":"No Secret key for this User",
                 "username": name
             })
-            html.set_cookie("admin", "0",max_age=200)
+            html.set_cookie("admin", "0",max_age=200, secure=True)
             return html
         else:
             return render(request, 'Lab_2021/A1_BrokenAccessControl/broken_access_lab_1.html', {"data": "User Not Found"})
@@ -1077,12 +1077,12 @@ def crypto_failure_lab3(request):
                     expire = datetime.datetime.now() + datetime.timedelta(minutes=60)
                     cookie = f"{username}|{expire}"
                     response = render(request,"Lab_2021/A2_Crypto_failur/crypto_failure_lab3.html",{"success":True, "failure":False , "admin":False})
-                    response.set_cookie("cookie", cookie)
+                    response.set_cookie("cookie", cookie, secure=True)
                     response.status_code = 200
                     return response
                 else:
                     response = render(request,"Lab_2021/A2_Crypto_failur/crypto_failure_lab3.html",{"success":False, "failure":True})
-                    response.set_cookie("cookie", None)
+                    response.set_cookie("cookie", None, secure=True)
                     return response
             except:
                 return render(request,"Lab_2021/A2_Crypto_failur/crypto_failure_lab2.html",{"success":False, "failure":True})
@@ -1110,7 +1110,7 @@ def sec_misconfig_lab3(request):
 
         cookie = jwt.encode(payload, SECRET_COOKIE_KEY, algorithm='HS256')
         response = render(request,"Lab/sec_mis/sec_mis_lab3.html", {"admin":False} )
-        response.set_cookie(key = "auth_cookie", value = cookie)
+        response.set_cookie(key = "auth_cookie", value = cookie, secure=True)
         return response
 
 # - ------------------------Identification and Authentication Failures--------------------------------
@@ -1198,14 +1198,14 @@ def auth_failure_lab3(request):
             password = hashlib.sha256(password.encode()).hexdigest()
         except:
             response = render(request, "Lab_2021/A7_auth_failure/lab3.html")
-            response.set_cookie("session_id", None)
+            response.set_cookie("session_id", None, secure=True)
             return response
 
         if USER_A7_LAB3[username]['password'] == password:
             session_data = AF_session_id.objects.create(session_id=token, user=USER_A7_LAB3[username]['username'])
             session_data.save()
             response = render(request, "Lab_2021/A7_auth_failure/lab3.html", {"success":True, "failure":False, "username":username})
-            response.set_cookie("session_id", token)
+            response.set_cookie("session_id", token, secure=True)
             return response
 
 #-- coding playground for lab2
