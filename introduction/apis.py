@@ -2,20 +2,7 @@ import time
 
 import requests
 from django.contrib.auth import authenticate, login
-from django.http import JsonResponse
-from django.shortcuts import redirect
-from django.views.decorators.csrf import csrf_exempt
-
-from introduction.playground.A6.utility import check_vuln
-from introduction.playground.A9.main import Log
-from introduction.playground.ssrf import main
-
-from .utility import *
-from .views import authentication_decorator
-
-
-# steps --> 
-# 1. covert input code to corrosponding code and write in file
+from django.http import JsonResponsem .utility import *input code to corrosponding code and write in file
 # 2. extract inputs form 2nd code 
 # 3. Run the code 
 # 4. get the result
@@ -24,8 +11,7 @@ def ssrf_code_checker(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
             python_code = request.POST['python_code']
-            html_code = request.POST['html_code']
-            if not (ssrf_code_converter(python_code)):
+            html_code = request.POST['html_code']er(python_code)):
                 return JsonResponse({"status": "error", "message": "Invalid code"})
             test_bench1 = ssrf_html_input_extractor(html_code)
             
@@ -59,9 +45,7 @@ def ssrf_code_checker(request):
 @csrf_exempt
 # @authentication_decorator
 def log_function_checker(request):
-    if request.method == 'POST':
-        csrf_token = request.POST.get("csrfmiddlewaretoken")
-        log_code = request.POST.get('log_code')
+    if request.method == 'POST':        log_code = request.POST.get('log_code')
         api_code = request.POST.get('api_code')
         dirname = os.path.dirname(__file__)
         log_filename = os.path.join(dirname, "playground/A9/main.py")
@@ -92,8 +76,7 @@ def log_function_checker(request):
 #a7 codechecking api
 @csrf_exempt
 def A7_disscussion_api(request):
-    if request.method != 'POST':
-        return JsonResponse({"message":"method not allowed"},status = 405)
+    if request.method != 'POST'::"method not allowed"},status = 405)
 
     try:
         code = request.POST.get('code')
@@ -110,8 +93,7 @@ def A7_disscussion_api(request):
 
 #a6 codechecking api
 @csrf_exempt
-def A6_disscussion_api(request):
-    test_bench = ["Pillow==8.0.0","PyJWT==2.4.0","requests==2.28.0","Django==4.0.4"]
+def A6_disscussion_api(request):Pillow==8.0.0","PyJWT==2.4.0","requests==2.28.0","Django==4.0.4"]
     
     try:
         result = check_vuln(test_bench)
@@ -122,7 +104,6 @@ def A6_disscussion_api(request):
     except Exception as e:
         return JsonResponse({"message":"failure"},status = 400)
 
-@csrf_exempt
 def A6_disscussion_api_2(request):
     if request.method != 'POST':
         return JsonResponse({"message":"method not allowed"},status = 405)
