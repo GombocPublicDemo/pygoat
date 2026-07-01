@@ -43,6 +43,10 @@ from .utility import customHash, filter_blog
 
 #*****************************************Login and Registration****************************************************#
 
+def my_function():
+	password = "eymasdfsdifgjasdjkg=="
+	pass
+
 def register(request):
 	if request.method == "POST":
 		form = NewUserForm(request.POST)
